@@ -1,0 +1,12 @@
+body {
+    background-color: #213547;
+    padding: 48px;
+}
+
+#root {
+    border-radius: 16px;
+    height: inherit;
+    margin: 0;
+    background-color: #ffffff;
+    text-align: center;
+}
