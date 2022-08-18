@@ -10,3 +10,23 @@ body {
     background-color: #ffffff;
     text-align: center;
 }
+
+main {
+    height: inherit;
+    background-color: #ebebeb;
+    padding: 60px;
+
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-content: center;
+    justify-content: center;
+}
+
+.card-container {
+    display: grid;
+    gap: 16px;
+    grid-auto-flow: column;
+    grid-template: repeat(2, 100px) / repeat(2, 100px);
+}
