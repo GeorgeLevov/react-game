@@ -4,7 +4,7 @@ body {
 }
 
 #root {
-    border-radius: 16px;
+    border-radius: 24px;
     height: inherit;
     margin: 0;
     background-color: #ffffff;
@@ -12,16 +12,19 @@ body {
 }
 
 main {
+    border-radius: 24px;
     height: inherit;
     background-color: #ebebeb;
     padding: 60px;
 
     display: flex;
     align-items: center;
-    flex-direction: row;
+    flex-direction: column;
     flex-wrap: wrap;
     align-content: center;
     justify-content: center;
+
+    gap: 80px;
 }
 
 .card-container {
@@ -29,4 +32,22 @@ main {
     gap: 16px;
     grid-auto-flow: column;
     grid-template: repeat(2, 100px) / repeat(2, 100px);
+}
+
+.card-reset-btn {
+    display: inline-block;
+    padding: 16px 24px;
+
+    font-size: 18px;
+    border-radius: 5px;
+    font-weight: bolder;
+    text-decoration: none;
+    background: hsl(208, 37%, 20%);
+    color: #fff;
+}
+
+.card-reset-btn:hover,
+.card-reset-btn:active {
+    background: hsl(208, 37%, 50%);
+    /* font-size: 32px; */
 }
