@@ -24,14 +24,14 @@ main {
     align-content: center;
     justify-content: center;
 
-    gap: 80px;
+    gap: 40px;
 }
 
 .card-container {
     display: grid;
     gap: 16px;
     grid-auto-flow: column;
-    grid-template: repeat(2, 100px) / repeat(2, 100px);
+    grid-template: repeat(3, 100px) / repeat(3, 100px);
 }
 
 .card-reset-btn {

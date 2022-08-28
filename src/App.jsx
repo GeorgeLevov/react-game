@@ -11,36 +11,103 @@ function App() {
     // array of the images that we're going to need for the game
     const cardFaces = [ClubImage, DiamondImage, HeartImage, SpadeImage];
 
-    // generating the individual card components inside the function below,
-    // maybe the function can be broken down to a function creating card objects whose keys are then piped into components
-    // but the Card component it's simple enough that it doesn't need to be reworked
+    const [matched, setMatched] = useState(false);
+
+    // turn counter to help with highScore tracking
+    const [turnCount, setTurnCount] = useState(1);
+
     const generateCards = (count) => {
         const cardArray = Array.apply(null, Array(count)).map(() => {
-            return (
-                <Card
-                    key={nanoid()}
-                    lockedIn={false}
-                    value={
-                        cardFaces[Math.floor(Math.random() * cardFaces.length)]
-                    }
-                ></Card>
-            );
+            const cardId = nanoid();
+            return {
+                id: cardId,
+                value: cardFaces[Math.floor(Math.random() * cardFaces.length)],
+                lockedIn: false,
+            };
         });
         return cardArray;
     };
 
-    const [cards, setCards] = useState(generateCards(8));
-
-    const resetCards = () => {
-        setCards(() => generateCards(8));
+    const lockCard = (id) => {
+        setCards((cards) =>
+            cards.map((card) => {
+                return {
+                    ...card,
+                    lockedIn: card.id == id ? !card.lockedIn : card.lockedIn,
+                };
+            })
+        );
     };
+
+    const [cards, setCards] = useState(generateCards(9));
+
+    const cardElements = cards.map((card) => (
+        <Card
+            key={card.id}
+            lockedIn={card.lockedIn}
+            value={card.value}
+            lockCard={() => lockCard(card.id)}
+        ></Card>
+    ));
+
+    const drawCards = () => {
+        setTurnCount((turnCount) => turnCount + 1);
+        console.log(turnCount);
+        if (!matched) {
+            setCards((cards) =>
+                cards.map((card) => {
+                    card = card.lockedIn ? card : generateCards(1)[0];
+                    return card;
+                })
+            );
+        } else {
+            if (turnCount <= parseInt(localStorage.getItem("highScore"))) {
+                localStorage.setItem("highScore", turnCount);
+            }
+
+            setMatched(() => false);
+            setCards(() => generateCards(9));
+            setTurnCount((turnCount) => 1);
+        }
+    };
+
+    useEffect(() => {
+        const valueToMatch = cards[0].value;
+        const matchingCards = cards.every(
+            (card) => card.value == valueToMatch && card.lockedIn
+        );
+
+        setMatched(() => matchingCards);
+    }, [cards]);
+
+    // setting highScore tracker
+    useEffect(() => {
+        localStorage.setItem("highScore", 100);
+    }, []);
 
     return (
         <main>
-            <div className="card-container">{cards}</div>
+            <h1>Card Match</h1>
+            <h3>
+                You have drawn 9 random cards. Try to match all cards using the
+                least number of turns. Click on each card to lock in it's suit.
+            </h3>
+            {matched ? (
+                <h3>
+                    Congratulations!
+                    <br />
+                    You won in {turnCount} turns!
+                    {turnCount <= parseInt(localStorage.getItem("highScore"))
+                        ? " You Reached a new High Score!"
+                        : ""}
+                </h3>
+            ) : (
+                <h3></h3>
+            )}
+            <div className="card-container">{cardElements}</div>
 
-            <button className="card-reset-btn" onClick={resetCards}>
-                Set Cards
+            <button className="card-reset-btn" onClick={drawCards}>
+                {matched ? "Start new game" : "Next turn"}
             </button>
         </main>
     );

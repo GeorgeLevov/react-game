@@ -9,3 +9,7 @@
     box-shadow: 0px 0.8px 1.2px hsl(0deg 0% 53% / 0),
         0px 3.4px 5.1px hsl(0deg 0% 53% / 0.62);
 }
+
+.locked {
+    background-color: #dfff00;
+}
