@@ -52,7 +52,6 @@ function App() {
 
     const drawCards = () => {
         setTurnCount((turnCount) => turnCount + 1);
-        console.log(turnCount);
         if (!matched) {
             setCards((cards) =>
                 cards.map((card) => {
@@ -61,8 +60,11 @@ function App() {
                 })
             );
         } else {
-            if (turnCount <= parseInt(localStorage.getItem("highScore"))) {
-                localStorage.setItem("highScore", turnCount);
+            if (
+                turnCount <=
+                parseInt(localStorage.getItem("matching_suites_high_score"))
+            ) {
+                localStorage.setItem("matching_suites_high_score", turnCount);
             }
 
             setMatched(() => false);
@@ -82,7 +84,7 @@ function App() {
 
     // setting highScore tracker
     useEffect(() => {
-        localStorage.setItem("highScore", 100);
+        localStorage.setItem("matching_suites_high_score", 100);
     }, []);
 
     return (
@@ -97,7 +99,8 @@ function App() {
                     Congratulations!
                     <br />
                     You won in {turnCount} turns!
-                    {turnCount <= parseInt(localStorage.getItem("highScore"))
+                    {turnCount <=
+                    parseInt(localStorage.getItem("matching_suites_high_score"))
                         ? " You Reached a new High Score!"
                         : ""}
                 </h3>
