@@ -89,7 +89,7 @@ function App() {
 
     return (
         <main>
-            <h1>Card Match</h1>
+            <h1>Matching Suits</h1>
             <h3>
                 You have drawn 9 random cards. Try to match all cards using the
                 least number of turns. Click on each card to lock in it's suit.
