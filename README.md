@@ -1,2 +1,4 @@
-# react-game
-A simple game made with React
+# Matching Suits
+
+
+*README in progress ...*
